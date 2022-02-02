@@ -10,7 +10,8 @@
         Width="522.057"
         Icon="Images/logo.png"
         ResizeMode="CanMinimize"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Closing="Window_Closing">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.23*"></RowDefinition>
@@ -42,10 +43,12 @@
             <StackPanel DockPanel.Dock="Left"
                         Margin="10 10 0 0">
                 <TextBlock Text="License Agreement"
+                           Name="mainLabel"
                            FontSize="11"
                            FontWeight="Bold"
                            Padding="10 10 0 3" />
                 <TextBlock Text="Please read the following important information before continuing."
+                           Name="secondLabel"
                            FontSize="11"
                            Padding="30 0 0 0" />
             </StackPanel>
@@ -57,13 +60,47 @@
         <StackPanel Grid.Column="0"
                     Grid.Row="1"
                     Margin="10 10 10 0">
+            <StackPanel Margin="30 15 0 0"
+                        Name="mainInfo"
+                        Orientation="Horizontal"
+                        Visibility="Collapsed">
+                <Image Width="30"
+                       Name="mainInfoImage"
+                       Source="Images/folder_icon.png" />
+                <TextBlock Text="Setup will install VPN Unlimited into the following folder."
+                           Name="mainInfoText"
+                           TextWrapping="Wrap"
+                           FontSize="11"
+                           VerticalAlignment="Center"
+                           Padding="5 0 0 0" />
+            </StackPanel>
             <TextBlock Text="Please read the following License Agreement. You must accept the terms of this,
 agreement before continuing with the installation."
+                       Name="mainText"
                        TextWrapping="Wrap"
                        FontSize="11"
                        Padding="30 10 50 5" />
+            <StackPanel Margin="30 5 0 0"
+                        Name="browse"
+                        Orientation="Horizontal"
+                        Visibility="Collapsed">
+                <TextBox Text=""
+                         Width="360"
+                         Name="browseTextBox"
+                           TextWrapping="Wrap"
+                           FontSize="11"
+                           VerticalAlignment="Center"
+                         Margin="0 0 10 0"/>
+                <Button Content="Browse..."
+                        Name="browseButton"
+                        FontSize="11"
+                        Padding="10 3"
+                        Click="browseButton_Click" />
+            </StackPanel>
             <TextBox xml:space="preserve"
                      TextWrapping="Wrap"
+                     Visibility="Visible"
+                     Name="agreementTextBox"
                      FontSize="10"
                      IsReadOnly="True"
                      ScrollViewer.VerticalScrollBarVisibility="Visible"
@@ -221,30 +258,63 @@ FORCE MAJEURE. Except for any payment obligations, neither party will be liable 
 SURVIVAL. Upon any termination or expiration of this Agreement, a party's indemnification obligations, warranty disclaimers, or limitations of liabilities, arbitration, and miscellaneous provisions stated in this Agreement will survive such termination or expiration.
              </TextBox>
 
-            <StackPanel Margin="30 15 0 0">
+            <StackPanel Margin="30 15 0 0"
+                        Name="radios"
+                        Visibility="Visible">
                 <RadioButton Content="I accept the agreement"
-                             FontSize="11" />
+                             FontSize="11"
+                             Checked="RadioButton_Checked" />
                 <RadioButton IsChecked="True"
                              Content="I do not accept the agreement"
-                             FontSize="11" />
+                             FontSize="11"
+                             Click="RadioButton_Click" />
             </StackPanel>
+            <StackPanel Name="additionalShortcuts"
+                        Visibility="Collapsed">
+                <TextBlock Text="Additional shortcuts:"
+                           TextWrapping="Wrap"
+                           FontSize="11"
+                           Padding="30 10 50 5" />
+                <CheckBox Content="Create a desktop shortcut"
+                          Name="desktopShortcutCheckBox"
+                          Margin="30 5 0 0 "
+                          FontSize="11"
+                          Click="desktopShortcutCheckBox_Click" />
+            </StackPanel>
+            <TextBlock Text="At least 173,6 MB of free disk space is required."
+                       Name="freeSpaceInfo"
+                       Visibility="Collapsed"
+                       Margin="30 110 0 0 "
+                       FontSize="11" />
         </StackPanel>
-
+       
         <StackPanel Grid.Column="0"
                     Grid.Row="2"
                     Orientation="Horizontal"
                     HorizontalAlignment="Right">
+            <Button Content="Back"
+                    Name="backButton"
+                    FontSize="11"
+                    Width="82"
+                    Height="25"
+                    Margin="0,0,5,0"
+                    Visibility="Hidden"
+                    Click="backButton_Click" />
             <Button Content="Next"
+                    Name="nextButton"
                     FontSize="11"
                     Width="82"
                     Height="25"
                     Margin="0,0,15,0"
-                    IsEnabled="False"/>
+                    IsEnabled="False"
+                    Click="nextButton_Click" />
             <Button Content="Cancel"
+                    Name="cancelButton"
                     FontSize="11"
                     Width="82"
                     Height="25"
-                    Margin="0,0,10,0" />
+                    Margin="0,0,10,0"
+                    Click="cancelButton_Click" />
         </StackPanel>
     </Grid>
 </Window>
