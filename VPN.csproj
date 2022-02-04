@@ -123,5 +123,8 @@
   <ItemGroup>
     <Resource Include="Images\start_folder_icon.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\vpn_logo.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

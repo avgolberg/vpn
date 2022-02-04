@@ -12,7 +12,7 @@
         ResizeMode="CanMinimize"
         WindowStartupLocation="CenterScreen"
         Closing="Window_Closing">
-    <Grid>
+    <Grid Name="mainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="0.23*"></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -22,11 +22,13 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Border BorderThickness="0,0,0,1"
+        <Border Name="border1"
+                BorderThickness="0,0,0,1"
                 BorderBrush="#FFA3A3A3"
                 Grid.Column="0"
                 Grid.Row="0" />
-        <Rectangle Grid.Column="0"
+        <Rectangle Name="rect1"
+                   Grid.Column="0"
                    Grid.Row="1"
                    Fill="#FFF0F0F0" />
         <Rectangle Grid.Column="0"
@@ -52,11 +54,13 @@
                            FontSize="11"
                            Padding="30 0 0 0" />
             </StackPanel>
-            <Image Source="Images/logo.png"
+            <Image Name="logo"
+                   Source="Images/logo.png"
                    DockPanel.Dock="Right"
                    HorizontalAlignment="Right"
                    Margin="0 5 15 5" />
         </DockPanel>
+        
         <StackPanel Grid.Column="0"
                     Grid.Row="1"
                     Margin="10 10 10 0">
@@ -74,12 +78,22 @@
                            VerticalAlignment="Center"
                            Padding="5 0 0 0" />
             </StackPanel>
+            
             <TextBlock Text="Please read the following License Agreement. You must accept the terms of this,
 agreement before continuing with the installation."
                        Name="mainText"
                        TextWrapping="Wrap"
                        FontSize="11"
                        Padding="30 10 50 5" />
+            
+            <ProgressBar Minimum="0"
+                         Maximum="100"
+                         Name="pbStatus"
+                         Visibility="Collapsed"
+                         Margin="30 5 30 0"
+                         Height="20"
+                         ValueChanged="pbStatus_ValueChanged" />
+            
             <StackPanel Margin="30 5 0 0"
                         Name="browse"
                         Orientation="Horizontal"
@@ -87,16 +101,17 @@ agreement before continuing with the installation."
                 <TextBox Text=""
                          Width="360"
                          Name="browseTextBox"
-                           TextWrapping="Wrap"
-                           FontSize="11"
-                           VerticalAlignment="Center"
-                         Margin="0 0 10 0"/>
+                         TextWrapping="Wrap"
+                         FontSize="11"
+                         VerticalAlignment="Center"
+                         Margin="0 0 10 0" />
                 <Button Content="Browse..."
                         Name="browseButton"
                         FontSize="11"
                         Padding="10 3"
                         Click="browseButton_Click" />
             </StackPanel>
+            
             <TextBox xml:space="preserve"
                      TextWrapping="Wrap"
                      Visibility="Visible"
@@ -269,6 +284,7 @@ SURVIVAL. Upon any termination or expiration of this Agreement, a party's indemn
                              FontSize="11"
                              Click="RadioButton_Click" />
             </StackPanel>
+            
             <StackPanel Name="additionalShortcuts"
                         Visibility="Collapsed">
                 <TextBlock Text="Additional shortcuts:"
@@ -281,13 +297,56 @@ SURVIVAL. Upon any termination or expiration of this Agreement, a party's indemn
                           FontSize="11"
                           Click="desktopShortcutCheckBox_Click" />
             </StackPanel>
+            
             <TextBlock Text="At least 173,6 MB of free disk space is required."
                        Name="freeSpaceInfo"
                        Visibility="Collapsed"
                        Margin="30 110 0 0 "
                        FontSize="11" />
+
+            <TextBox TextWrapping="Wrap"
+                     Visibility="Collapsed"
+                     Name="finalSettings"
+                     FontSize="11"
+                     IsReadOnly="True"
+                     ScrollViewer.VerticalScrollBarVisibility="Visible"
+                     ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                     Margin="30,5,30.4,0"
+                     Height="160" />
         </StackPanel>
-       
+        
+        <Grid Name="completeGrid" Visibility="Collapsed" Grid.RowSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Image Source="Images/vpn_logo.png"
+                   Grid.Column="0"
+                   HorizontalAlignment="Right"
+                   Margin="10" />
+            <StackPanel Grid.Column="1">
+                <TextBlock TextWrapping="Wrap"
+                           Text="Completing the VPN Unlimited Setup Wizard"
+                           Margin="10 15 0 0 "
+                           FontWeight="Bold"
+                           FontSize="21" />
+                <TextBlock TextWrapping="Wrap"
+                           Text="Setup has finished installing VPN Unlimited on your
+computer. The application may be launched by selecting the
+installed shortcuts."
+                           Margin="10 20 20 0 "
+                           FontSize="11" />
+                <TextBlock Text="Click Finish to exit Setup."
+                           Margin="10 10 0 0 "
+                           FontSize="11" />
+                <CheckBox Content="Launch VPN Unlimited"
+                          Name="launchCheckBox"
+                          Margin="10 10 0 0 "
+                          FontSize="11"
+                          Click="desktopShortcutCheckBox_Click" />
+            </StackPanel>
+        </Grid>
+        
         <StackPanel Grid.Column="0"
                     Grid.Row="2"
                     Orientation="Horizontal"
