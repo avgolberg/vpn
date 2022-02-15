@@ -34,30 +34,14 @@ namespace VPN
                 worker.WorkerReportsProgress = true;
                 worker.DoWork += worker_DoWork;
                 worker.ProgressChanged += worker_ProgressChanged;
-
                 worker.RunWorkerAsync();
             }
-
         }
 
         private void backButton_Click(object sender, RoutedEventArgs e)
         {
             pageNumber--;
             ShowPage();
-        }
-
-        private void worker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            for (int i = 0; i < 101; i++)
-            {
-                (sender as BackgroundWorker).ReportProgress(i);
-                Thread.Sleep(100);
-            }
-        }
-
-        private void worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            pbStatus.Value = e.ProgressPercentage;
         }
 
         private void ShowPage()
@@ -103,7 +87,6 @@ agreement before continuing with the installation.";
                     browse.Visibility = Visibility.Visible;
                     browseTextBox.Text = "VPN Unlimited";
                     mainInfoText.Text = "Setup will create the program's shortcuts in the following Start Menu folder.";
-
 
                     freeSpaceInfo.Visibility = Visibility.Collapsed;
                     agreementTextBox.Visibility = Visibility.Collapsed;
@@ -157,16 +140,16 @@ change any settings.";
                     nextButton.Visibility = Visibility.Visible;
                     break;
             }
-
         }
+
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
             nextButton.IsEnabled = true;
         }
-        private void desktopShortcutCheckBox_Click(object sender, RoutedEventArgs e)
+
+        private void RadioButton_Click(object sender, RoutedEventArgs e)
         {
-            if ((bool)desktopShortcutCheckBox.IsChecked) desktopShortcut = true;
-            else desktopShortcut = false;
+            nextButton.IsEnabled = false;
         }
 
         private void browseButton_Click(object sender, RoutedEventArgs e)
@@ -180,6 +163,12 @@ change any settings.";
             }
         }
 
+        private void desktopShortcutCheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            if ((bool)desktopShortcutCheckBox.IsChecked) desktopShortcut = true;
+            else desktopShortcut = false;
+        }
+
         private void pbStatus_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             if (pbStatus.Value == 100)
@@ -188,15 +177,24 @@ change any settings.";
                 ShowPage();
             }
         }
-        private void RadioButton_Click(object sender, RoutedEventArgs e)
+
+        private void worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            nextButton.IsEnabled = false;
+            for (int i = 0; i < 101; i++)
+            {
+                (sender as BackgroundWorker).ReportProgress(i);
+                Thread.Sleep(100);
+            }
+        }
+
+        private void worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            pbStatus.Value = e.ProgressPercentage;
         }
 
         private void cancelButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
-
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
