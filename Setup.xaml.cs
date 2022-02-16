@@ -71,7 +71,7 @@ agreement before continuing with the installation.";
                     browse.Visibility = Visibility.Visible;
                     if (path != null && path.Length != 0) browseTextBox.Text = path;
                     freeSpaceInfo.Visibility = Visibility.Visible;
-                    mainInfoImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/folder_icon.png"));
+                    mainInfoImage.Source = new BitmapImage(new Uri("Images/folder_icon.png", UriKind.Relative));
 
                     agreementTextBox.Visibility = Visibility.Collapsed;
                     radios.Visibility = Visibility.Collapsed;
@@ -142,14 +142,14 @@ change any settings.";
             }
         }
 
-        private void RadioButton_Checked(object sender, RoutedEventArgs e)
-        {
-            nextButton.IsEnabled = true;
-        }
-
         private void RadioButton_Click(object sender, RoutedEventArgs e)
         {
-            nextButton.IsEnabled = false;
+            nextButton.IsEnabled = !(nextButton.IsEnabled);
+        }
+
+        private void desktopShortcutCheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            desktopShortcut = (bool)desktopShortcutCheckBox.IsChecked;
         }
 
         private void browseButton_Click(object sender, RoutedEventArgs e)
@@ -161,12 +161,6 @@ change any settings.";
                 browseTextBox.Text = openFileDlg.SelectedPath;
                 path = openFileDlg.SelectedPath;
             }
-        }
-
-        private void desktopShortcutCheckBox_Click(object sender, RoutedEventArgs e)
-        {
-            if ((bool)desktopShortcutCheckBox.IsChecked) desktopShortcut = true;
-            else desktopShortcut = false;
         }
 
         private void pbStatus_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)

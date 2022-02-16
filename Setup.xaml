@@ -278,7 +278,7 @@ SURVIVAL. Upon any termination or expiration of this Agreement, a party's indemn
                         Visibility="Visible">
                 <RadioButton Content="I accept the agreement"
                              FontSize="11"
-                             Checked="RadioButton_Checked" />
+                             Click="RadioButton_Click" />
                 <RadioButton IsChecked="True"
                              Content="I do not accept the agreement"
                              FontSize="11"
